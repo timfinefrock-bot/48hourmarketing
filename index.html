@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>48 Hour Marketing - Brand Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .upload-section {
+            background: #f8f9fa;
+            border: 2px dashed #cbd5e0;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-section:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: #cbd5e0;
+            margin-bottom: 15px;
+        }
+
+        .upload-text {
+            color: #4a5568;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .upload-subtext {
+            color: #a0aec0;
+            font-size: 14px;
+        }
+
+        .file-list {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .file-item-icon {
+            color: #48bb78;
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        .file-item-name {
+            flex: 1;
+            color: #2d3748;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #2d3748;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .success-message {
+            display: none;
+            background: #48bb78;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .error-message {
+            display: none;
+            background: #f56565;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>48 Hour Marketing</h1>
+        <p class="subtitle">Create your brand profile in minutes</p>
+
+        <form id="brandForm">
+            <div class="upload-section" id="uploadSection">
+                <div class="upload-icon">📁</div>
+                <div class="upload-text">Click to Upload Images</div>
+                <div class="upload-subtext">Upload your logo, products, or brand photos</div>
+                <div class="file-list" id="fileList"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Your Name *</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="businessName">Business Name *</label>
+                <input type="text" id="businessName" name="businessName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="brandDescription">Brand Description *</label>
+                <textarea id="brandDescription" name="brandDescription" required placeholder="Tell us about your brand, products, target audience, and what makes you unique..."></textarea>
+            </div>
+
+            <input type="hidden" id="imageIds" name="imageIds" value="">
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                Generate My Marketing Materials
+            </button>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Processing your request...</p>
+            </div>
+
+            <div class="success-message" id="successMessage">
+                <h3>🎉 Success!</h3>
+                <p>Your marketing materials are being generated. Check your email in 48 hours!</p>
+            </div>
+
+            <div class="error-message" id="errorMessage">
+                <h3>⚠️ Error</h3>
+                <p id="errorText">Something went wrong. Please try again.</p>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+        // Configuration
+        const CONFIG = {
+            clientId: '461191446774-8d44l3lo8ahlqksnll406hfa2i3eoqoj.apps.googleusercontent.com',
+            apiKey: 'AIzaSyDKPQbbWsIXV0NmhWKoYsyxJIfQ166L1bs',
+            webhookUrl: 'https://rhenfrock.app.n8n.cloud/webhook/listing-social-submit',
+            uploadFolderId: '1r6LQ4Lg_EbnLN-AZL_L-zJ189HuNBM69'
+        };
+
+        let uploadedFiles = [];
+        let pickerInited = false;
+        let gisInited = false;
+        let tokenClient;
+        let accessToken = null;
+
+        // Load Google API
+        function gapiLoaded() {
+            gapi.load('client:picker', initializePicker);
+        }
+
+        function gisLoaded() {
+            tokenClient = google.accounts.oauth2.initTokenClient({
+                client_id: CONFIG.clientId,
+                scope: 'https://www.googleapis.com/auth/drive.file',
+                callback: '', // defined later
+            });
+            gisInited = true;
+        }
+
+        async function initializePicker() {
+            await gapi.client.load('https://www.googleapis.com/discovery/v1/apis/drive/v3/rest');
+            pickerInited = true;
+        }
+
+        // Handle OAuth
+        function handleAuthClick() {
+            tokenClient.callback = async (response) => {
+                if (response.error !== undefined) {
+                    throw (response);
+                }
+                accessToken = response.access_token;
+                createPicker();
+            };
+
+            if (accessToken === null) {
+                tokenClient.requestAccessToken({prompt: 'consent'});
+            } else {
+                tokenClient.requestAccessToken({prompt: ''});
+            }
+        }
+
+        // Create Google Picker
+        function createPicker() {
+            const view = new google.picker.DocsView(google.picker.ViewId.DOCS);
+            view.setMimeTypes('image/png,image/jpeg,image/jpg,image/gif');
+            
+            const uploadView = new google.picker.DocsUploadView();
+            uploadView.setMimeTypes('image/png,image/jpeg,image/jpg,image/gif');
+
+            const picker = new google.picker.PickerBuilder()
+                .enableFeature(google.picker.Feature.NAV_HIDDEN)
+                .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
+                .setDeveloperKey(CONFIG.apiKey)
+                .setAppId(CONFIG.clientId.split('-')[0])
+                .setOAuthToken(accessToken)
+                .addView(uploadView)
+                .addView(view)
+                .setCallback(pickerCallback)
+                .build();
+            
+            picker.setVisible(true);
+        }
+
+        // Handle picker response
+        function pickerCallback(data) {
+            if (data.action === google.picker.Action.PICKED) {
+                uploadedFiles = data.docs.map(doc => ({
+                    id: doc.id,
+                    name: doc.name
+                }));
+                displayFiles();
+            }
+        }
+
+        // Display uploaded files
+        function displayFiles() {
+            const fileList = document.getElementById('fileList');
+            fileList.innerHTML = uploadedFiles.map(file => `
+                <div class="file-item">
+                    <span class="file-item-icon">✓</span>
+                    <span class="file-item-name">${file.name}</span>
+                </div>
+            `).join('');
+            
+            document.getElementById('imageIds').value = uploadedFiles.map(f => f.id).join(',');
+        }
+
+        // Upload section click handler
+        document.getElementById('uploadSection').addEventListener('click', () => {
+            handleAuthClick();
+        });
+
+        // Form submission
+        document.getElementById('brandForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const loading = document.getElementById('loading');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Validate images
+            if (uploadedFiles.length === 0) {
+                alert('Please upload at least one image');
+                return;
+            }
+            
+            // Disable form
+            submitBtn.disabled = true;
+            loading.classList.add('active');
+            
+            // Prepare data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                businessName: document.getElementById('businessName').value,
+                brandDescription: document.getElementById('brandDescription').value,
+                imageIds: uploadedFiles.map(f => f.id)
+            };
+            
+            try {
+                // Submit to n8n webhook
+                const response = await fetch(CONFIG.webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Submission failed');
+                }
+                
+                // Show success
+                loading.classList.remove('active');
+                successMessage.classList.add('active');
+                document.getElementById('brandForm').reset();
+                uploadedFiles = [];
+                displayFiles();
+                
+            } catch (error) {
+                console.error('Error:', error);
+                loading.classList.remove('active');
+                errorMessage.classList.add('active');
+                document.getElementById('errorText').textContent = 'Failed to submit. Please try again or contact support.';
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Initialize on load
+        gapiLoaded();
+    </script>
+    <script src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+</body>
+</html>
