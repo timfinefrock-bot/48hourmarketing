@@ -531,8 +531,9 @@
     // Configuration
     const CONFIG = {
         clientId: '461191446774-8d44l3lo8ahlqksnll406hfa2i3eoqoj.apps.googleusercontent.com',
-        apiKey: 'AIzaSyDKPQbbWsIXV0NmhWKoYsyxJIfQ166L1bs',
-        webhookUrl: 'https://tfinefrock.app.n8n.cloud/webhook/agent-brand-onboarding'
+        apiKey: 'AIzaSyAkBwhFJH5OvSsSDMLZiWR5iDqU70QW5OQ',
+        webhookUrl: 'https://tfinefrock.app.n8n.cloud/webhook/agent-brand-onboarding',
+        uploadFolderId: '1r6LQ4Lg_EbnLN-AZL_L-zJ189HuNBM69'
     };
 
     // State management
@@ -604,6 +605,7 @@
 
         const uploadView = new google.picker.DocsUploadView();
         uploadView.setMimeTypes('image/png,image/jpeg,image/jpg');
+        uploadView.setParent(CONFIG.uploadFolderId);  // SET UPLOAD FOLDER HERE
 
         let builder = new google.picker.PickerBuilder()
             .enableFeature(google.picker.Feature.NAV_HIDDEN)
