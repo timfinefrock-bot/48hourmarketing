@@ -25,9 +25,10 @@
             background: white;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 700px;
+            max-width: 800px;
             width: 100%;
             padding: 40px;
+            margin: 20px 0;
         }
 
         h1 {
@@ -45,73 +46,13 @@
         }
 
         .section-title {
-            margin-top: 20px;
-            margin-bottom: 10px;
+            margin-top: 24px;
+            margin-bottom: 12px;
             font-weight: 700;
             color: #2d3748;
-            font-size: 15px;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 6px;
-        }
-
-        .upload-section {
-            background: #f8f9fa;
-            border: 2px dashed #cbd5e0;
-            border-radius: 12px;
-            padding: 40px 20px;
-            text-align: center;
-            margin-bottom: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .upload-section:hover {
-            border-color: #667eea;
-            background: #f0f4ff;
-        }
-
-        .upload-icon {
-            font-size: 32px;
-            color: #cbd5e0;
-            margin-bottom: 10px;
-        }
-
-        .upload-text {
-            color: #4a5568;
             font-size: 16px;
-            margin-bottom: 5px;
-        }
-
-        .upload-subtext {
-            color: #a0aec0;
-            font-size: 13px;
-        }
-
-        .file-list {
-            margin-top: 20px;
-            text-align: left;
-        }
-
-        .file-item {
-            display: flex;
-            align-items: center;
-            padding: 8px;
-            background: white;
-            border-radius: 8px;
-            margin-bottom: 6px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .file-item-icon {
-            color: #48bb78;
-            margin-right: 8px;
-            font-size: 16px;
-        }
-
-        .file-item-name {
-            flex: 1;
-            color: #2d3748;
-            font-size: 14px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 8px;
         }
 
         .form-row {
@@ -135,7 +76,11 @@
             font-size: 13px;
         }
 
-        input, textarea {
+        label .required {
+            color: #e53e3e;
+        }
+
+        input, textarea, select {
             width: 100%;
             padding: 10px 12px;
             border: 2px solid #e2e8f0;
@@ -145,7 +90,7 @@
             font-family: inherit;
         }
 
-        input:focus, textarea:focus {
+        input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: #667eea;
         }
@@ -155,15 +100,98 @@
             min-height: 100px;
         }
 
+        select[multiple] {
+            min-height: 120px;
+        }
+
         .hint {
             font-size: 11px;
             color: #a0aec0;
-            margin-top: 2px;
+            margin-top: 4px;
+        }
+
+        .upload-box {
+            background: #f8f9fa;
+            border: 2px dashed #cbd5e0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+        }
+
+        .upload-box:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .upload-box.has-file {
+            border-color: #48bb78;
+            background: #f0fff4;
+        }
+
+        .upload-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .upload-text {
+            color: #4a5568;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .upload-subtext {
+            color: #a0aec0;
+            font-size: 12px;
+        }
+
+        .file-preview {
+            display: none;
+            margin-top: 8px;
+            padding: 8px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .file-preview.active {
+            display: flex;
+        }
+
+        .file-preview-icon {
+            color: #48bb78;
+            font-size: 16px;
+        }
+
+        .file-preview-name {
+            flex: 1;
+            color: #2d3748;
+            font-size: 13px;
+            text-align: left;
+        }
+
+        .file-remove-btn {
+            background: #f56565;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .file-remove-btn:hover {
+            background: #e53e3e;
         }
 
         .submit-btn {
             width: 100%;
-            margin-top: 8px;
+            margin-top: 24px;
             padding: 14px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -175,7 +203,7 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .submit-btn:hover {
+        .submit-btn:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
         }
@@ -237,117 +265,250 @@
         .error-message.active {
             display: block;
         }
+
+        .color-input-wrapper {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .color-preview {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .color-input-wrapper input[type="text"] {
+            flex: 1;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <h1>48 Hour Marketing</h1>
-    <p class="subtitle">Agent brand onboarding profile</p>
+    <p class="subtitle">Agent Brand Onboarding Profile</p>
 
     <form id="brandForm">
-        <div class="upload-section" id="uploadSection">
-            <div class="upload-icon">📁</div>
-            <div class="upload-text">Click to upload logo, headshot, and brand photos</div>
-            <div class="upload-subtext">
-                First image = logo, second = headshot, the rest = brand photos
-            </div>
-            <div class="file-list" id="fileList"></div>
-        </div>
-
-        <div class="section-title">Agent details</div>
+        <!-- Agent Information -->
+        <div class="section-title">Agent Information</div>
 
         <div class="form-row">
             <div class="form-group">
-                <label for="agentFirstName">First name *</label>
+                <label for="agentFirstName">First Name <span class="required">*</span></label>
                 <input type="text" id="agentFirstName" required>
             </div>
             <div class="form-group">
-                <label for="agentLastName">Last name *</label>
+                <label for="agentLastName">Last Name <span class="required">*</span></label>
                 <input type="text" id="agentLastName" required>
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group">
-                <label for="agentPhone">Mobile number *</label>
-                <input type="tel" id="agentPhone" required>
+                <label for="agentPhone">Phone Number <span class="required">*</span></label>
+                <input type="tel" id="agentPhone" placeholder="(555) 123-4567" required>
             </div>
             <div class="form-group">
-                <label for="agentEmail">Email address *</label>
-                <input type="email" id="agentEmail" required>
+                <label for="agentEmail">Email <span class="required">*</span></label>
+                <input type="email" id="agentEmail" placeholder="agent@example.com" required>
             </div>
+        </div>
+
+        <div class="form-group">
+            <label for="agentWebsite">Website</label>
+            <input type="text" id="agentWebsite" placeholder="www.example.com or https://example.com">
+            <div class="hint">Optional - include or omit https://</div>
         </div>
 
         <div class="form-row">
             <div class="form-group">
-                <label for="agentWebsite">Website</label>
-                <input type="url" id="agentWebsite" placeholder="https://">
-            </div>
-            <div class="form-group">
-                <label for="agentLicenseNumber">License number *</label>
+                <label for="agentLicenseNumber">RE License Number <span class="required">*</span></label>
                 <input type="text" id="agentLicenseNumber" required>
             </div>
+            <div class="form-group">
+                <label for="agentLicensedStates">States Licensed <span class="required">*</span></label>
+                <select id="agentLicensedStates" multiple required>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                </select>
+                <div class="hint">Hold Ctrl (Windows) or Cmd (Mac) to select multiple</div>
+            </div>
         </div>
 
         <div class="form-group">
-            <label for="agentLicensedStates">Licensed states (comma-separated) *</label>
-            <input type="text" id="agentLicensedStates" placeholder="WA, OR" required>
-            <div class="hint">We will store this as an array of state codes.</div>
-        </div>
-
-        <div class="section-title">Brokerage / team</div>
-
-        <div class="form-group">
-            <label for="brokerageName">Brokerage name *</label>
+            <label for="brokerageName">Brokerage Name <span class="required">*</span></label>
             <input type="text" id="brokerageName" required>
         </div>
 
         <div class="form-group">
-            <label for="brokerageAddress">Brokerage address *</label>
-            <input type="text" id="brokerageAddress" required>
+            <label for="brokerageAddress">Brokerage Address <span class="required">*</span></label>
+            <input type="text" id="brokerageAddress" placeholder="123 Main St, City, ST 12345" required>
+            <div class="hint">Full address including city, state, and ZIP</div>
         </div>
 
         <div class="form-group">
-            <label for="teamName">Team name</label>
-            <input type="text" id="teamName" placeholder="Optional">
+            <label for="teamName">Team Name</label>
+            <input type="text" id="teamName">
+            <div class="hint">Optional - leave blank if not applicable</div>
         </div>
 
-        <div class="section-title">Brand voice and colors</div>
+        <!-- Brand Information -->
+        <div class="section-title">Brand Information</div>
 
         <div class="form-group">
-            <label for="brandTagline">Brand tagline</label>
-            <input type="text" id="brandTagline" placeholder="Get it done in 48 hours.">
-        </div>
-
-        <div class="form-group">
-            <label for="brandDescription">Brand description *</label>
-            <textarea id="brandDescription" required
-                      placeholder="Describe your ideal clients, style, differentiators, and promises."></textarea>
+            <label for="brandTagline">Brand Tagline</label>
+            <input type="text" id="brandTagline" placeholder="One short, memorable line">
+            <div class="hint">Optional - a brief phrase that captures your brand</div>
         </div>
 
         <div class="form-group">
-            <label for="brandTone">Brand tone (comma-separated) *</label>
-            <input type="text" id="brandTone" placeholder="direct, confident, no-fluff" required>
-            <div class="hint">We will store this as an array of tone tags.</div>
+            <label for="brandDescription">Brand Description <span class="required">*</span></label>
+            <textarea id="brandDescription" required placeholder="Describe your brand and what makes you different. Include your ideal clients, style, differentiators, and promises."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="brandTone">Brand Tone <span class="required">*</span></label>
+            <select id="brandTone" multiple required>
+                <option value="fun and friendly">Fun and Friendly</option>
+                <option value="minimalistic">Minimalistic</option>
+                <option value="luxury">Luxury</option>
+                <option value="professional">Professional</option>
+                <option value="bright and colorful">Bright and Colorful</option>
+                <option value="modern">Modern</option>
+                <option value="dark">Dark</option>
+                <option value="light">Light</option>
+            </select>
+            <div class="hint">Hold Ctrl (Windows) or Cmd (Mac) to select multiple</div>
         </div>
 
         <div class="form-row">
             <div class="form-group">
-                <label for="colorPrimary">Primary color (hex) *</label>
-                <input type="text" id="colorPrimary" placeholder="#ff6600" required>
+                <label for="colorPrimary">Primary Color <span class="required">*</span></label>
+                <div class="color-input-wrapper">
+                    <div class="color-preview" id="colorPrimaryPreview"></div>
+                    <input type="text" id="colorPrimary" placeholder="#FF6600" required>
+                </div>
+                <div class="hint">HEX format: #FF6600</div>
             </div>
             <div class="form-group">
-                <label for="colorSecondary">Secondary color (hex)</label>
-                <input type="text" id="colorSecondary" placeholder="#111111">
-            </div>
-            <div class="form-group">
-                <label for="colorTertiary">Tertiary color (hex)</label>
-                <input type="text" id="colorTertiary" placeholder="#ffffff">
+                <label for="colorSecondary">Secondary Color</label>
+                <div class="color-input-wrapper">
+                    <div class="color-preview" id="colorSecondaryPreview"></div>
+                    <input type="text" id="colorSecondary" placeholder="#111111">
+                </div>
             </div>
         </div>
 
+        <div class="form-group">
+            <label for="colorTertiary">Tertiary Color</label>
+            <div class="color-input-wrapper">
+                <div class="color-preview" id="colorTertiaryPreview"></div>
+                <input type="text" id="colorTertiary" placeholder="#FFFFFF">
+            </div>
+        </div>
+
+        <!-- Image Uploads -->
+        <div class="section-title">Brand Assets</div>
+
+        <div class="form-group">
+            <label>Logo</label>
+            <div class="upload-box" id="logoUploadBox" data-type="logo">
+                <div class="upload-icon">🖼️</div>
+                <div class="upload-text">Click to upload logo</div>
+                <div class="upload-subtext">Will be cropped to square format</div>
+            </div>
+            <div class="file-preview" id="logoPreview">
+                <span class="file-preview-icon">✓</span>
+                <span class="file-preview-name" id="logoName"></span>
+                <button type="button" class="file-remove-btn" onclick="removeFile('logo')">Remove</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Headshot</label>
+            <div class="upload-box" id="headshotUploadBox" data-type="headshot">
+                <div class="upload-icon">👤</div>
+                <div class="upload-text">Click to upload headshot</div>
+                <div class="upload-subtext">Will be cropped to square format</div>
+            </div>
+            <div class="file-preview" id="headshotPreview">
+                <span class="file-preview-icon">✓</span>
+                <span class="file-preview-name" id="headshotName"></span>
+                <button type="button" class="file-remove-btn" onclick="removeFile('headshot')">Remove</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>16:9 Brand Images (up to 2)</label>
+            <div class="upload-box" id="brandImage16x9UploadBox" data-type="brandImage16x9">
+                <div class="upload-icon">📷</div>
+                <div class="upload-text">Click to upload 16:9 images</div>
+                <div class="upload-subtext">Landscape format - select up to 2 images</div>
+            </div>
+            <div id="brandImage16x9List"></div>
+        </div>
+
+        <div class="form-group">
+            <label>4:4 Brand Images (up to 2)</label>
+            <div class="upload-box" id="brandImage4x4UploadBox" data-type="brandImage4x4">
+                <div class="upload-icon">🖼️</div>
+                <div class="upload-text">Click to upload 4:4 square images</div>
+                <div class="upload-subtext">Square format - select up to 2 images</div>
+            </div>
+            <div id="brandImage4x4List"></div>
+        </div>
+
         <button type="submit" class="submit-btn" id="submitBtn">
-            Submit brand profile
+            Submit Brand Profile
         </button>
 
         <div class="loading" id="loading">
@@ -356,7 +517,7 @@
         </div>
 
         <div class="success-message" id="successMessage">
-            Your brand profile has been received. We will build your materials on this foundation.
+            ✓ Your brand profile has been successfully submitted! We will build your materials on this foundation.
         </div>
 
         <div class="error-message" id="errorMessage">
@@ -367,21 +528,28 @@
 
 <script src="https://apis.google.com/js/api.js"></script>
 <script>
-    // Configuration for Google Picker + n8n webhook
+    // Configuration
     const CONFIG = {
         clientId: '461191446774-8d44l3lo8ahlqksnll406hfa2i3eoqoj.apps.googleusercontent.com',
         apiKey: 'AIzaSyDKPQbbWsIXV0NmhWKoYsyxJIfQ166L1bs',
-        webhookUrl: 'https://tfinefrock.app.n8n.cloud/webhook/agent-brand-onboarding',
-        uploadFolderId: '1r6LQ4Lg_EbnLN-AZL_L-zJ189HuNBM69'
+        webhookUrl: 'https://tfinefrock.app.n8n.cloud/webhook/agent-brand-onboarding'
     };
 
-    let uploadedFiles = [];
+    // State management
     let pickerInited = false;
     let gisInited = false;
     let tokenClient;
     let accessToken = null;
+    let currentUploadType = null;
 
-    // Load Google API
+    const uploadedFiles = {
+        logo: null,
+        headshot: null,
+        brandImage16x9: [],
+        brandImage4x4: []
+    };
+
+    // Initialize Google APIs
     function gapiLoaded() {
         gapi.load('client:picker', initializePicker);
     }
@@ -390,7 +558,7 @@
         tokenClient = google.accounts.oauth2.initTokenClient({
             client_id: CONFIG.clientId,
             scope: 'https://www.googleapis.com/auth/drive.file',
-            callback: '', // set at call time
+            callback: ''
         });
         gisInited = true;
     }
@@ -400,8 +568,19 @@
         pickerInited = true;
     }
 
+    // Handle upload box clicks
+    document.querySelectorAll('.upload-box').forEach(box => {
+        box.addEventListener('click', function() {
+            currentUploadType = this.getAttribute('data-type');
+            handleAuthClick();
+        });
+    });
+
     function handleAuthClick() {
-        if (!gisInited || !pickerInited) return;
+        if (!gisInited || !pickerInited) {
+            alert('Google Picker is still loading. Please try again in a moment.');
+            return;
+        }
 
         tokenClient.callback = (response) => {
             if (response.error !== undefined) {
@@ -421,49 +600,111 @@
 
     function createPicker() {
         const view = new google.picker.DocsView(google.picker.ViewId.DOCS);
-        view.setMimeTypes('image/png,image/jpeg,image/jpg,image/gif');
+        view.setMimeTypes('image/png,image/jpeg,image/jpg');
 
         const uploadView = new google.picker.DocsUploadView();
-        uploadView.setMimeTypes('image/png,image/jpeg,image/jpg,image/gif');
+        uploadView.setMimeTypes('image/png,image/jpeg,image/jpg');
 
-        const picker = new google.picker.PickerBuilder()
+        let builder = new google.picker.PickerBuilder()
             .enableFeature(google.picker.Feature.NAV_HIDDEN)
-            .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
             .setDeveloperKey(CONFIG.apiKey)
             .setAppId(CONFIG.clientId.split('-')[0])
             .setOAuthToken(accessToken)
             .addView(uploadView)
             .addView(view)
-            .setCallback(pickerCallback)
-            .build();
+            .setCallback(pickerCallback);
 
-        picker.setVisible(true);
+        // Enable multi-select for 16x9 and 4x4 images
+        if (currentUploadType === 'brandImage16x9' || currentUploadType === 'brandImage4x4') {
+            builder.enableFeature(google.picker.Feature.MULTISELECT_ENABLED);
+        }
+
+        builder.build().setVisible(true);
     }
 
     function pickerCallback(data) {
         if (data.action === google.picker.Action.PICKED) {
-            uploadedFiles = data.docs.map(doc => ({
+            const files = data.docs.map(doc => ({
                 id: doc.id,
                 name: doc.name
             }));
-            displayFiles();
+
+            if (currentUploadType === 'logo') {
+                uploadedFiles.logo = files[0];
+                displaySingleFile('logo', files[0]);
+            } else if (currentUploadType === 'headshot') {
+                uploadedFiles.headshot = files[0];
+                displaySingleFile('headshot', files[0]);
+            } else if (currentUploadType === 'brandImage16x9') {
+                const limit = 2;
+                uploadedFiles.brandImage16x9 = files.slice(0, limit);
+                displayMultipleFiles('brandImage16x9', uploadedFiles.brandImage16x9);
+            } else if (currentUploadType === 'brandImage4x4') {
+                const limit = 2;
+                uploadedFiles.brandImage4x4 = files.slice(0, limit);
+                displayMultipleFiles('brandImage4x4', uploadedFiles.brandImage4x4);
+            }
         }
     }
 
-    function displayFiles() {
-        const fileList = document.getElementById('fileList');
-        fileList.innerHTML = uploadedFiles.map(file => `
-            <div class="file-item">
-                <span class="file-item-icon">✓</span>
-                <span class="file-item-name">${file.name}</span>
-            </div>
-        `).join('');
+    function displaySingleFile(type, file) {
+        const preview = document.getElementById(`${type}Preview`);
+        const nameElement = document.getElementById(`${type}Name`);
+        const uploadBox = document.getElementById(`${type}UploadBox`);
+
+        nameElement.textContent = file.name;
+        preview.classList.add('active');
+        uploadBox.classList.add('has-file');
     }
 
-    document.getElementById('uploadSection').addEventListener('click', () => {
-        handleAuthClick();
+    function displayMultipleFiles(type, files) {
+        const listElement = document.getElementById(`${type}List`);
+        const uploadBox = document.getElementById(`${type}UploadBox`);
+
+        listElement.innerHTML = files.map((file, index) => `
+            <div class="file-preview active" style="margin-top: 8px;">
+                <span class="file-preview-icon">✓</span>
+                <span class="file-preview-name">${file.name}</span>
+                <button type="button" class="file-remove-btn" onclick="removeFileFromArray('${type}', ${index})">Remove</button>
+            </div>
+        `).join('');
+
+        if (files.length > 0) {
+            uploadBox.classList.add('has-file');
+        } else {
+            uploadBox.classList.remove('has-file');
+        }
+    }
+
+    function removeFile(type) {
+        uploadedFiles[type] = null;
+        const preview = document.getElementById(`${type}Preview`);
+        const uploadBox = document.getElementById(`${type}UploadBox`);
+        preview.classList.remove('active');
+        uploadBox.classList.remove('has-file');
+    }
+
+    function removeFileFromArray(type, index) {
+        uploadedFiles[type].splice(index, 1);
+        displayMultipleFiles(type, uploadedFiles[type]);
+    }
+
+    // Color preview functionality
+    ['colorPrimary', 'colorSecondary', 'colorTertiary'].forEach(id => {
+        const input = document.getElementById(id);
+        const preview = document.getElementById(id + 'Preview');
+
+        input.addEventListener('input', function() {
+            const color = this.value.trim();
+            if (color.match(/^#[0-9A-Fa-f]{6}$/)) {
+                preview.style.backgroundColor = color;
+            } else {
+                preview.style.backgroundColor = '#e2e8f0';
+            }
+        });
     });
 
+    // Form submission
     document.getElementById('brandForm').addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -473,46 +714,32 @@
         const errorMessage = document.getElementById('errorMessage');
         const errorText = document.getElementById('errorText');
 
+        // Hide previous messages
         successMessage.classList.remove('active');
         errorMessage.classList.remove('active');
 
-        // Basic validation: must have required text fields; images optional for now
-        if (!document.getElementById('agentFirstName').value.trim() ||
-            !document.getElementById('agentLastName').value.trim() ||
-            !document.getElementById('agentPhone').value.trim() ||
-            !document.getElementById('agentEmail').value.trim() ||
-            !document.getElementById('agentLicenseNumber').value.trim() ||
-            !document.getElementById('agentLicensedStates').value.trim() ||
-            !document.getElementById('brokerageName').value.trim() ||
-            !document.getElementById('brokerageAddress').value.trim() ||
-            !document.getElementById('brandDescription').value.trim() ||
-            !document.getElementById('brandTone').value.trim() ||
-            !document.getElementById('colorPrimary').value.trim()
-        ) {
-            errorText.textContent = 'Please fill in all required fields before submitting.';
+        // Get selected states
+        const statesSelect = document.getElementById('agentLicensedStates');
+        const selectedStates = Array.from(statesSelect.selectedOptions).map(opt => opt.value);
+
+        // Get selected brand tones
+        const toneSelect = document.getElementById('brandTone');
+        const selectedTones = Array.from(toneSelect.selectedOptions).map(opt => opt.value);
+
+        // Validate required fields
+        if (selectedStates.length === 0) {
+            errorText.textContent = 'Please select at least one licensed state.';
             errorMessage.classList.add('active');
             return;
         }
 
-        submitBtn.disabled = true;
-        loading.classList.add('active');
+        if (selectedTones.length === 0) {
+            errorText.textContent = 'Please select at least one brand tone.';
+            errorMessage.classList.add('active');
+            return;
+        }
 
-        // Parse arrays
-        const licensedStates = document.getElementById('agentLicensedStates').value
-            .split(',')
-            .map(s => s.trim())
-            .filter(Boolean);
-
-        const brandTone = document.getElementById('brandTone').value
-            .split(',')
-            .map(s => s.trim())
-            .filter(Boolean);
-
-        // Map uploaded images into logo/headshot/brand images
-        const logoImageId = uploadedFiles[0] ? uploadedFiles[0].id : null;
-        const headshotImageId = uploadedFiles[1] ? uploadedFiles[1].id : null;
-        const brandImage16x9Ids = uploadedFiles.slice(2).map(f => f.id);
-
+        // Build payload
         const payload = {
             agentFirstName: document.getElementById('agentFirstName').value.trim(),
             agentLastName: document.getElementById('agentLastName').value.trim(),
@@ -520,21 +747,25 @@
             agentEmail: document.getElementById('agentEmail').value.trim(),
             agentWebsite: document.getElementById('agentWebsite').value.trim() || null,
             agentLicenseNumber: document.getElementById('agentLicenseNumber').value.trim(),
-            agentLicensedStates: licensedStates,
+            agentLicensedStates: selectedStates,
             brokerageName: document.getElementById('brokerageName').value.trim(),
             brokerageAddress: document.getElementById('brokerageAddress').value.trim(),
             teamName: document.getElementById('teamName').value.trim() || null,
             brandTagline: document.getElementById('brandTagline').value.trim() || null,
             brandDescription: document.getElementById('brandDescription').value.trim(),
-            brandTone: brandTone,
+            brandTone: selectedTones,
             colorPrimary: document.getElementById('colorPrimary').value.trim(),
             colorSecondary: document.getElementById('colorSecondary').value.trim() || null,
             colorTertiary: document.getElementById('colorTertiary').value.trim() || null,
-            logoImageId: logoImageId,
-            headshotImageId: headshotImageId,
-            brandImage16x9Ids: brandImage16x9Ids,
-            brandImage4x4Ids: []  // you can change this later if you want a second bucket
+            logoImageId: uploadedFiles.logo ? uploadedFiles.logo.id : null,
+            headshotImageId: uploadedFiles.headshot ? uploadedFiles.headshot.id : null,
+            brandImage16x9Ids: uploadedFiles.brandImage16x9.map(f => f.id),
+            brandImage4x4Ids: uploadedFiles.brandImage4x4.map(f => f.id)
         };
+
+        // Submit to webhook
+        submitBtn.disabled = true;
+        loading.classList.add('active');
 
         try {
             const response = await fetch(CONFIG.webhookUrl, {
@@ -545,23 +776,41 @@
                 body: JSON.stringify(payload)
             });
 
+            const result = await response.json();
+
             if (!response.ok) {
-                throw new Error('Bad response from server');
+                if (result.missingFields) {
+                    errorText.textContent = `Missing required fields: ${result.missingFields.join(', ')}`;
+                } else {
+                    errorText.textContent = result.error || 'Failed to submit profile. Please try again.';
+                }
+                throw new Error('Submission failed');
             }
 
+            // Success
             loading.classList.remove('active');
             successMessage.classList.add('active');
-            submitBtn.disabled = false;
+            
+            // Optionally reset form
+            // document.getElementById('brandForm').reset();
+            // Object.keys(uploadedFiles).forEach(key => {
+            //     if (Array.isArray(uploadedFiles[key])) {
+            //         uploadedFiles[key] = [];
+            //     } else {
+            //         uploadedFiles[key] = null;
+            //     }
+            // });
+
         } catch (err) {
             console.error(err);
             loading.classList.remove('active');
-            errorText.textContent = 'Failed to submit brand profile. Please try again.';
             errorMessage.classList.add('active');
+        } finally {
             submitBtn.disabled = false;
         }
     });
 
-    // Kick off gapi on load
+    // Initialize on load
     gapiLoaded();
 </script>
 <script src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
