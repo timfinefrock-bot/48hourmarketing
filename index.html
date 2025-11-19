@@ -307,7 +307,7 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="agentPhone">Phone Number <span class="required">*</span></label>
-                <input type="tel" id="agentPhone" placeholder="(555) 123-4567" required>
+                <input type="tel" id="agentPhone" placeholder="(555) 123-4567" maxlength="14" required>
             </div>
             <div class="form-group">
                 <label for="agentEmail">Email <span class="required">*</span></label>
@@ -527,6 +527,7 @@
 </div>
 
 <script src="https://apis.google.com/js/api.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKPQbbWsIXV0NmhWKoYsyxJIfQ166L1bs&libraries=places"></script>
 <script>
     // Configuration
     const CONFIG = {
@@ -549,6 +550,53 @@
         brandImage16x9: [],
         brandImage4x4: []
     };
+
+    // Phone number auto-formatting
+    document.getElementById('agentPhone').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+    
+    if (value.length > 10) {
+        value = value.slice(0, 10); // Limit to 10 digits
+    }
+    
+    let formatted = '';
+    if (value.length > 0) {
+        formatted = '(' + value.substring(0, 3);
+    }
+    if (value.length >= 4) {
+        formatted += ') ' + value.substring(3, 6);
+    }
+    if (value.length >= 7) {
+        formatted += '-' + value.substring(6, 10);
+    }
+    
+    e.target.value = formatted;
+    });
+
+    // Address autocomplete
+    let autocomplete;
+    function initAutocomplete() {
+    const addressInput = document.getElementById('brokerageAddress');
+    
+    autocomplete = new google.maps.places.Autocomplete(addressInput, {
+        types: ['address'],
+        componentRestrictions: { country: 'us' }
+    });
+    
+    autocomplete.addListener('place_changed', function() {
+        const place = autocomplete.getPlace();
+        if (place.formatted_address) {
+            addressInput.value = place.formatted_address;
+        }
+    });
+    }
+
+// Initialize autocomplete when page loads
+window.addEventListener('load', function() {
+    if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+        initAutocomplete();
+    }
+    });
 
     // Initialize Google APIs
     function gapiLoaded() {
