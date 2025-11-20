@@ -826,15 +826,22 @@ window.addEventListener('load', function() {
                 body: JSON.stringify(payload)
             });
 
-            const result = await response.json();
+            const raw = await response.text();
+            let result = null;
+
+            try {
+              result = raw ? JSON.parse(raw) : null;
+            } catch (e) {
+            console.warn('Non-JSON response from webhook:', raw);
+            }
 
             if (!response.ok) {
-                if (result.missingFields) {
-                    errorText.textContent = `Missing required fields: ${result.missingFields.join(', ')}`;
-                } else {
-                    errorText.textContent = result.error || 'Failed to submit profile. Please try again.';
-                }
-                throw new Error('Submission failed');
+              if (result && Array.isArray(result.missingFields) && result.missingFields.length) {
+                errorText.textContent = `Missing required fields: ${result.missingFields.join(', ')}`;
+              } else {
+                errorText.textContent = 'Failed to submit profile. Please try again.';
+              }
+              throw new Error('Submission failed');
             }
 
             // Success
